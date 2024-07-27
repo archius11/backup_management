@@ -2,9 +2,9 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-FTP_WRITER_LOGIN = os.getenv('FTP_WRITER_LOGIN')
-FTP_WRITER_PASSWORD = os.getenv('FTP_WRITER_PASSWORD')
-FTP_WRITER = {'login': FTP_WRITER_LOGIN, 'password': FTP_WRITER_PASSWORD}
+FTP_WRITER = {'login': os.getenv('FTP_WRITER_LOGIN'), 'password': os.getenv('FTP_WRITER_PASSWORD')}
+FTP_READER = {'login': os.getenv('FTP_FILE_READER_LOGIN'), 'password': os.getenv('FTP_FILE_READER_PASSWORD')}
+FTP_FULL_READER = {'login': os.getenv('FTP_FULL_READER_LOGIN'), 'password': os.getenv('FTP_FULL_READER_PASSWORD')}
 
 FTP_IP = os.getenv('FTP_IP')
 
