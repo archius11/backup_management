@@ -9,16 +9,20 @@ import announcer
 
 
 def check_backup_files(path, storage_type, date_of_backups):
+    was_errors = False
     for dbname, folders in DATABASE_DIRS.items():
         files_mask = os.path.join(path,
                                   folders[storage_type],
                                   f'{dbname}_backup_{date_of_backups.strftime('%Y_%m_%d')}_*.*')
         files_list = glob.glob(files_mask)
         if len(files_list) != BACKUPS_COUNT_PER_DAY:
-            announcer.announce_error(f'{storage_type} backups checker exception of {dbname} database!'
+            announcer.announce_error(f'{storage_type} backups checker exception of {dbname} database!\n'
                                      f'Number of backup files does not '
                                      f'match number of days (must be {BACKUPS_COUNT_PER_DAY} but {len(files_list)} '
                                      f'found)')
+            was_errors = True
+    if not was_errors:
+        announcer.announce_successful(f'{date_of_backups.strftime('%d:%m:%Y')}: {storage_type} backups is OK')
 
 
 if __name__ == '__main__':
