@@ -34,4 +34,4 @@ BACKUPS_AGE_SETTINGS_MSSQL = [
     {'min': 0, 'max': 59, 'step': 1},   # первые 60 дней бекап каждый день
 ]
 
-BACKUPS_COUNT_PER_DAY = 10
+BACKUPS_COUNT_PER_DAY = 16
