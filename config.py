@@ -21,7 +21,7 @@ EVENING_ANNOUNCE_CHAT_IDS = os.getenv('EVENING_NOTIFICATION_CHAT_ID').split(',')
 DATABASE_DIRS = {
     'alfa6': {'mssql': 'alfa6', 'storage': 'alfa6', 'ftp': 'alfa6'},
     'o2': {'mssql': 'o2', 'storage': 'o2', 'ftp': 'o2'},
-    'zup31': {'mssql': 'zup31', 'storage': 'zup31', 'ftp': 'zup31'},
+    'ZUP31': {'mssql': 'zup31', 'storage': 'zup31', 'ftp': 'zup31'},
 }
 
 BACKUPS_AGE_SETTINGS_STORAGE = [
