@@ -37,8 +37,8 @@ if __name__ == '__main__':
         backup_date = datetime.today()
     backup_date = backup_date.replace(hour=0, minute=0, second=0, microsecond=0)
 
-    if not args.only_transport:
+    if not args.only_cleaning:
         do_transport_backups(backup_date)
 
-    if not args.only_cleaning:
+    if not args.only_transport:
         do_clean_backups(backup_date)
