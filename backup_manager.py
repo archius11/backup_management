@@ -23,7 +23,7 @@ if __name__ == '__main__':
     parser.add_argument('--only_transport', dest='only_transport', action='store_true',
                         help='Disables cleaning of backups', default=False, required=False)
 
-    parser.add_argument('--only_cleaning', dest='only_transport', action='store_true',
+    parser.add_argument('--only_cleaning', dest='only_cleaning', action='store_true',
                         help='Disables transport of backups', default=False, required=False)
 
     args = parser.parse_args()
