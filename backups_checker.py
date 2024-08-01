@@ -21,7 +21,7 @@ def check_backup_files(path, storage_type, date_of_backups):
                                      f'Должно быть {BACKUPS_COUNT_PER_DAY}, есть {len(files_list)}')
             was_errors = True
     if not was_errors:
-        announcer.announce_successful(f'{date_of_backups.strftime('%d:%m:%Y')}: {storage_type} backups is OK')
+        announcer.announce_successful(f'{date_of_backups.strftime('%d.%m.%Y')}: {storage_type} бэкапы в порядке')
 
 
 if __name__ == '__main__':
