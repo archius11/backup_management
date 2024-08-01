@@ -22,7 +22,7 @@ def clean_backups(cleaning_date):
     for folder in folders_to_clean:
         _clean_backups_folder(cleaning_date, *folder)
 
-    announcer.announce_successful('Old backups cleaned')
+    announcer.announce_successful('Старые бэкапы очищены')
 
 
 def _extract_backup_date(filename):

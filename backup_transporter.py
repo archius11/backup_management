@@ -22,7 +22,7 @@ def transport_daily_backup(backup_date: date):
             print(f'copied {file_name} to ftp')
             copy_to_storage(folders['storage'], file_name)
             print(f'copied {file_name} to storage')
-    announcer.announce_successful('Transport Daily Backup Complete')
+    announcer.announce_successful('Перенос бэкапов в хранилище и в FTP успешно завершен')
 
 
 def copy_to_ftp(ftp, folder_ftp, file_name):
@@ -35,16 +35,16 @@ def copy_to_ftp(ftp, folder_ftp, file_name):
             break
         except ftplib.error_perm as e:
             if 'Overwrite permission denied' in str(e):
-                announcer.announce_error('Overwrite permission denied ' + file_name)
+                announcer.announce_error('Файл уже существует на FTP. Перезапись запрещена: ' + file_name)
             else:
-                announcer.announce_error('Permission error ' + file_name)
+                announcer.announce_error('Ошибка прав доступа при записи на FTP: ' + file_name)
                 announcer.announce_error(str(e))
             break
         except Exception as e:
             last_exception = e
 
     if last_exception:
-        announcer.announce_error('Unknown error ' + file_name)
+        announcer.announce_error('Неизвестная ошибка при записи на FTP: ' + file_name)
         announcer.announce_error(str(last_exception))
         raise last_exception
 
@@ -55,11 +55,11 @@ def copy_to_storage(folder_storage, file_name):
         shutil.copy2(file_name, storage_filename)
     except FileNotFoundError as e:
         if not os.path.exists(file_name):
-            announcer.announce_error('Path not found ' + file_name)
+            announcer.announce_error('Путь не найден: ' + file_name)
         if not os.path.exists(storage_filename):
-            announcer.announce_error('Path not found ' + storage_filename)
+            announcer.announce_error('Путь не найден ' + storage_filename)
         announcer.announce_error(str(e))
     except Exception as e:
-        announcer.announce_error('Unknown error ' + file_name)
+        announcer.announce_error('Неизвестная ошибка при записи в хранилище: ' + file_name)
         announcer.announce_error(str(e))
         raise e

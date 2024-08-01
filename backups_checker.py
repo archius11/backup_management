@@ -16,10 +16,9 @@ def check_backup_files(path, storage_type, date_of_backups):
                                   f'{dbname}_backup_{date_of_backups.strftime('%Y_%m_%d')}_*.*')
         files_list = glob.glob(files_mask)
         if len(files_list) != BACKUPS_COUNT_PER_DAY:
-            announcer.announce_error(f'{storage_type} backups checker exception of {dbname} database!\n'
-                                     f'Number of backup files does not '
-                                     f'match number of days (must be {BACKUPS_COUNT_PER_DAY} but {len(files_list)} '
-                                     f'found)')
+            announcer.announce_error(f'Ошибка при контроле количества бэкапов базы {dbname} на {storage_type}!\n'
+                                     f'Количество файлов не совпадает. '
+                                     f'Должно быть {BACKUPS_COUNT_PER_DAY}, есть {len(files_list)}')
             was_errors = True
     if not was_errors:
         announcer.announce_successful(f'{date_of_backups.strftime('%d:%m:%Y')}: {storage_type} backups is OK')
