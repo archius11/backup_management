@@ -10,19 +10,27 @@ from ftp import FTPOperator
 import announcer
 
 
-def transport_daily_backup(backup_date: date):
+def transport_daily_backup(backup_date: date, only_last_backup):
     for dbname, folders in DATABASE_DIRS.items():
         files_mask = os.path.join(MSSQL_BACKUP_FOLDER,
                                   folders['mssql'],
                                   f'{dbname}_backup_{backup_date.strftime('%Y_%m_%d')}_*.*')
         files_list = glob.glob(files_mask)
+
+        if not files_list:
+            continue
+
+        if only_last_backup:
+            files_list = [sorted(files_list)[-1]]
+
         ftp = FTPOperator(FTP_WRITER)
         for file_name in files_list:
             copy_to_ftp(ftp, folders['ftp'], file_name)
             print(f'copied {file_name} to ftp')
             copy_to_storage(folders['storage'], file_name)
             print(f'copied {file_name} to storage')
-    announcer.announce_successful('Перенос бэкапов в хранилище и в FTP успешно завершен')
+    if not only_last_backup:
+        announcer.announce_successful('Перенос бэкапов в хранилище и в FTP успешно завершен')
 
 
 def copy_to_ftp(ftp, folder_ftp, file_name):
