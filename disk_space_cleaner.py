@@ -19,7 +19,7 @@ def disk_space_is_enough():
 
 def clean_older_backup():
     all_files_list = []
-    for db_dir in DATABASE_DIRS:
+    for db_dir in DATABASE_DIRS.values():
         all_files_list += _get_files_info(os.path.join(BACKUP_STORAGE_FTP, db_dir['ftp']))
 
     min_date = min([file_info['backup_date'] for file_info in all_files_list])
