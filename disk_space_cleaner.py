@@ -26,7 +26,7 @@ def clean_older_backup():
     files_to_delete = list(filter(lambda file_info: file_info['backup_date'] == min_date, all_files_list))
 
     for file_to_delete in files_to_delete:
-        # os.remove(file_to_delete['path'])
+        os.remove(file_to_delete['path'])
         print(f'Deleting {file_to_delete}')
 
 
