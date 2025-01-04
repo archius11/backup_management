@@ -11,6 +11,7 @@ import announcer
 
 
 def transport_daily_backup(backup_date: date, only_last_backup):
+    announcer.announce_successful('Перенос бэкапов в хранилище и в FTP начат')
     for dbname, folders in DATABASE_DIRS.items():
         files_mask = os.path.join(MSSQL_BACKUP_FOLDER,
                                   folders['mssql'],
@@ -33,9 +34,9 @@ def transport_daily_backup(backup_date: date, only_last_backup):
 
             try:
                 copy_to_storage(folders['storage'], file_name)
+                print(f'copied {file_name} to storage')
             except:
                 pass
-                print(f'copied {file_name} to storage')
 
     announcer.announce_successful('Перенос бэкапов в хранилище и в FTP завершен')
 
@@ -67,11 +68,11 @@ def copy_to_ftp(ftp, folder_ftp, file_name):
 def copy_to_storage(folder_storage, file_name):
     storage_filename = str(os.path.join(BACKUP_STORAGE, folder_storage, os.path.basename(file_name)))
     last_exception = None
-
     for attempt in range(0, 5):
-
         try:
              shutil.copy2(file_name, storage_filename)
+             last_exception = None
+             break
         except FileNotFoundError as e:
             if not os.path.exists(file_name):
                 announcer.announce_error('Путь не найден: ' + file_name)
